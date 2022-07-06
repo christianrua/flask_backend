@@ -1,6 +1,11 @@
-sudo yum install git -y
+#!/bin/bash
+sudo apt install authbind
+sudo touch /etc/authbind/byport/80
+sudo chmod 777 /etc/authbind/byport/80
+curl "https://bootstrap.pypa.io/get-pip.py" -o "install-pip3-ubuntu.py"
+python3 install-pip3-ubuntu.py
+export PATH="${HOME}/.local/bin:${PATH}"
 git clone https://github.com/christianrua/flask_backend.git
 cd flask_backend/
 pip3 install -r requirements.txt
-export FLASK_APP=backend
-flask run --host=0.0.0.0 --port=80
+authbind --deep python3 backend.py
