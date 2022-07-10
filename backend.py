@@ -33,7 +33,7 @@ def hello_world():
 #     Key='flask-logs',
 # )
 
-    bucket.upload_file(file_name, 'flask-logs')
+    bucket.upload_file(file_name, 'flask-logs/')
     
     return f"<p>you are seeing the response from {host_name}, and your IP is {ip_addr}, adding {file_name} to s3</p>"
 
