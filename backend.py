@@ -5,6 +5,9 @@ from datetime import datetime
 
 import boto3
 s3_client = boto3.client('s3')
+
+s3 = boto3.resource('s3')
+bucket = s3.Bucket('sysopsadmin-christian')
  
 app = Flask(__name__)
 
@@ -24,13 +27,15 @@ def hello_world():
     with open(file_name, 'w') as f:
         f.write(f'{ip_addr} 200 {datetime.now()}')
 
-    response = s3_client.put_object(
-    Body=file_name,
-    Bucket='sysopsadmin-christian',
-    Key='flask-logs',
-)
+#     response = s3_client.put_object(
+#     Body=file_name,
+#     Bucket='sysopsadmin-christian',
+#     Key='flask-logs',
+# )
+
+    bucket.upload_file('file_name', 'flask-logs')
     
-    return f"<p>you are seeing the response from {host_name}, and your IP is {ip_addr}, s3 response {response}</p>"
+    return f"<p>you are seeing the response from {host_name}, and your IP is {ip_addr}</p>"
 
 if __name__ == '__main__':
    app.run(host='0.0.0.0', port=5000)    
